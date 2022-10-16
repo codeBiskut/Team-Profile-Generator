@@ -1,11 +1,16 @@
 const inquirer = require("inquirer")
 const fs = require("fs")
 const Manager = require("./lib/Manager")
-// please import Engineer and Intern libraries
+const Engineer = require('./lib/Engineer')
+const Intern = require('./lib/Intern')
 
 const generateHTML = require("./src/generateHTML")
 const manageCard = require("./src/managerHtml")
-//import engineer and intern cards same as manager card above
+const internCard = require('./src/internHtml')
+const engineerCard = require('./src/engineerHtml')
+const Employee = require("./lib/Employee")
+const Engineer = require("./lib/Engineer")
+const Intern = require("./lib/Intern")
 
 // you must create engineer and intern questions separately
 
@@ -54,6 +59,29 @@ const engineerQuestions = [
         message: "What is the engineer's github?",
         name: "engineerrOfficeNumber"
     },
+]
+
+const internQuestions = [
+    {
+        type: 'input',
+        message: "What is the intern's name?",
+        name: "internName"
+    },
+    {
+        type: 'input',
+        message: "What is the intern's id?",
+        name: "internId"
+    },
+    {
+        type: 'input',
+        message: "what is the intern's email?",
+        name: "internEmail"
+    },
+    {
+        type: 'input',
+        message: "What is the intern's school?",
+        name: "internSchool"
+    }
 ]
 
 function init() {
@@ -106,10 +134,14 @@ function addEmployee() {
 }
 
 function addEngineer() {
-    //ask questions about engineer using inquirer
     inquirer.prompt(engineerQuestions)
         .then(response => {
-            // create new instance engineer and add it to the employeeArray using push
+            const Engineer = new Engineer(
+                response.engineerName, 
+                response.engineerId, 
+                response.engineerEmail, 
+                response.engineerGithub
+                )
 
             confirmNext()
 
@@ -117,8 +149,15 @@ function addEngineer() {
 }
 
 function addIntern() {
-    //ask questions about intern using inquirer
-    // create new instance intern and add it to the employeeArray using push
+    inquirer.prompt(internQuestions)
+        .then(response => {
+            const Intern = new Intern(
+                response.internName,
+                response.internId,
+                response.internEmail,
+                response.internSchool
+            )
+        })
 
     confirmNext()
 }
