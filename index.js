@@ -1,9 +1,6 @@
 const inquirer = require("inquirer")
 const fs = require("fs")
 const Manager = require("./lib/Manager")
-const Engineer = require('./lib/Engineer')
-const Intern = require('./lib/Intern')
-
 const generateHTML = require("./src/generateHTML")
 const manageCard = require("./src/managerHtml")
 const internCard = require('./src/internHtml')
@@ -57,7 +54,7 @@ const engineerQuestions = [
     {
         type: "input",
         message: "What is the engineer's github?",
-        name: "engineerrOfficeNumber"
+        name: "engineerGithub"
     },
 ]
 
@@ -104,10 +101,11 @@ function init() {
 function confirmNext() {
     inquirer.prompt([{
         type: "confirm",
-        message: "Do you want to add more employee?",
+        message: "Do you want to add more employees?",
         name: "addMore"
     }])
         .then(response => {
+            console.log(response.addMore)
             if (response.addMore === true) {
                 addEmployee()
             }
@@ -119,7 +117,7 @@ function confirmNext() {
 function addEmployee() {
     inquirer.prompt([{
         type: "list",
-        message: "Do you add Engineer or Intern?",
+        message: "Do you want to add an Engineer or an Intern?",
         choices: ["Engineer", "Intern"],
         name: "selection"
     }])
@@ -127,21 +125,24 @@ function addEmployee() {
             if (response.selection === "Engineer") {
                 addEngineer()
             }
-            else {
+            else if(response.selection === "Intern") {
                 addIntern()
             }
         })
 }
 
 function addEngineer() {
-    inquirer.prompt(engineerQuestions)
+    inquirer
+        .prompt(engineerQuestions)
         .then(response => {
-            const Engineer = new Engineer(
-                response.engineerName, 
-                response.engineerId, 
-                response.engineerEmail, 
+            const engineer = new Engineer(
+                response.engineerName,
+                response.engineerId,
+                response.engineerEmail,
                 response.engineerGithub
-                )
+            )
+
+            employeeArray.push(engineer)
 
             confirmNext()
 
@@ -149,14 +150,17 @@ function addEngineer() {
 }
 
 function addIntern() {
-    inquirer.prompt(internQuestions)
+    inquirer
+        .prompt(internQuestions)
         .then(response => {
-            const Intern = new Intern(
+            const intern = new Intern(
                 response.internName,
                 response.internId,
                 response.internEmail,
                 response.internSchool
             )
+
+            employeeArray.push(intern)
         })
 
     confirmNext()
@@ -172,9 +176,9 @@ function createHTML() {
             cards = cards + manageCard(employeeArray[i])
         }
         else if (employeeArray[i].getRole() === "Engineer") {
-            //same as manager card but for Enineer card
+            cards = cards + engineerCard(employeeArray[i])
         } else {
-            //same as manager card but for  intern card
+            cards = cards + internCard(employeeArray[i])
         }
     }
     fs.writeFileSync("./dist/team.html", generateHTML(cards))

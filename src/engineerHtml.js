@@ -7,7 +7,7 @@ function engineerHtml(engineer){
           <li class="list-group-item">Name: ${engineer.name}</li>
           <li class="list-group-item">ID:  ${engineer.id}</li>
           <li class="list-group-item">Email: ${engineer.email}</li>
-          <li class="list-group-item">School: ${engineer.github}</li>
+          <li class="list-group-item">Github: ${engineer.github}</li>
         </ul>
       </div>
     </div>
