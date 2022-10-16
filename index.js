@@ -161,9 +161,10 @@ function addIntern() {
             )
 
             employeeArray.push(intern)
+
+            confirmNext()
         })
 
-    confirmNext()
 }
 
 function createHTML() {
