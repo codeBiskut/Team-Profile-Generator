@@ -6,7 +6,7 @@ function manageHtml(manager){
         <ul class="list-group">
           <li class="list-group-item">Name: ${manager.name}</li>
           <li class="list-group-item">ID:  ${manager.id}</li>
-          <li class="list-group-item">Email:${manager.email}</li>
+          <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
           <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
         </ul>
       </div>

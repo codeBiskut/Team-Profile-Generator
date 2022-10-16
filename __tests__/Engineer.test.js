@@ -19,6 +19,7 @@ describe('Engineer', () => {
             expect(engineer.getId()).toEqual(1)
             expect(engineer.getEmail()).toEqual('josh.rinehart.2k@gmail.com')
             expect(engineer.getRole()).toEqual('Engineer')
+            expect(engineer.getGithub()).toEqual('codebiskut')
         })
     })
 })

@@ -19,6 +19,7 @@ describe('Intern', () => {
             expect(intern.getId()).toEqual(1)
             expect(intern.getEmail()).toEqual('josh.rinehart.2k@gmail.com')
             expect(intern.getRole()).toEqual('Intern')
+            expect(intern.getSchool()).toEqual('The Ohio State University')
         })
     })
 })
